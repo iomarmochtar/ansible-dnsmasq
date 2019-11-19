@@ -1,0 +1,17 @@
+galaxy_info:
+  name: dnsmasq
+  author: Imam Omar Mochtar (iomarmochtar@gmail.com)
+  description: Install and manage dnsmasq service
+  license: GNU GPL v3.0
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+  galaxy_tags:
+    - dnsmasq
+    - dns
+
+dependencies: []

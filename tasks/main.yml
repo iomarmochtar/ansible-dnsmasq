@@ -1,0 +1,38 @@
+---
+
+- name: Install dnsmasq
+  package: name="{{ dnsmasq_pkg }}" state=present
+
+- name: Install helper tools
+  package: name="{{ item }}" state=present
+  with_items: "{{ helpers_pkg }}"
+
+- name: Create empty resolver file 
+  file: path="{{ upstream_path }}" state=touch
+  when: upstreams|length > 0 
+
+- name: Create upstream resolver file
+  lineinfile:
+    dest: "{{ upstream_path }}"
+    line: "nameserver {{ item }}"
+    state: present
+  loop: "{{ upstreams }}"
+  when: upstreams|length > 0 
+
+- name: Setup configuration files
+  template:
+    src: dnsmasq_conf.j2
+    dest: "{{ dnsmasq_conf }}" 
+
+- name: Restart dnsmasq service
+  service:
+    name: "{{ dnsmasq_srv }}"
+    state: restarted
+    enabled: true
+
+- name: Allowing udp port 53
+  firewalld:
+    port: 53/udp
+    permanent: yes
+    state: enabled
+  when: set_fw_rule

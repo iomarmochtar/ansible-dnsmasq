@@ -1,0 +1,9 @@
+{% if upstreams|length > 0 %}
+resolv-file={{ upstream_path }}
+{% endif %}
+
+{% for lines in configs %}
+{% for k,v in lines.items() -%}
+{{ k }}={{ v }}
+{% endfor %}
+{% endfor %}
