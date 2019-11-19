@@ -1,5 +1,5 @@
 galaxy_info:
-  name: dnsmasq
+  role_name: dnsmasq
   author: Imam Omar Mochtar (iomarmochtar@gmail.com)
   description: Install and manage dnsmasq service
   license: GNU GPL v3.0
